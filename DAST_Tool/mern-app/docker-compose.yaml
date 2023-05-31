@@ -14,7 +14,7 @@ services:
     ports:
       - "3001:3001"
     depends_on:
-      # - mongo
+      - mongo
       - zap
     env_file: ./config/default.json
     environment:
@@ -23,14 +23,14 @@ services:
       - IS_DOCKER=true
     networks:
       - app-network
-  # mongo:
-  #   image: mongo
-  #   volumes:
-  #     - data-volume:/data/db
-  #   ports:
-  #     - "27017:27017"
-  #   networks:
-  #     - app-network
+  mongo:
+    image: mongo
+    volumes:
+      - data-volume:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - app-network
   client:
     build:
       context: ./react-app
@@ -53,7 +53,7 @@ services:
   zap:
     image: owasp/zap2docker-stable:2.9.0
     container_name: zap
-    command: zap.sh -daemon -port 8090 -host 0.0.0.0 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
+    command: zap.sh -daemon -port 8080 -host 0.0.0.0 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
     ports:
       - "8080:8080"
     networks:

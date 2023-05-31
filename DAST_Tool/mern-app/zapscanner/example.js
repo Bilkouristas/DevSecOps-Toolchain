@@ -3,7 +3,7 @@ const zapscanner = require("./index");
 /* Setting Parameters */
 
 // URL to perform tests to.
-const url = "http://192.168.1.4:8070";
+const url = "http://192.168.0.171:8070";
 
 // ZAP Process Options.
 const zapProcOpt = {
