@@ -11,15 +11,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      - name: Set up environment
-        uses: actions/setup-java@v3
+      - name: Set up node.js
         uses: actions/setup-node@v3
-
+        with: 
+          node-version: '12'
+      - name: Set up java environment
+        uses: actions/setup-java@v3
         with:
           distribution: 'temurin'
-          node-version: '12'
           java-version: '17'
-          
+
       - name: Install Dependencies 
         run: ./mvnw clean install
       - name: Build Docker image locally
