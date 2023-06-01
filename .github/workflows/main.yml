@@ -6,7 +6,7 @@ on:
     branches: ['master']
     
 jobs:
-  Continuous Integration:
+  Continuous_Integration:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -34,7 +34,7 @@ jobs:
           cd WebGoat
           chmod +x mvnw
           docker build -f Dockerfile . -t webgoat/webgoat 
-           
+
       - name: Run the project  
         run: 
           cd WebGoat
