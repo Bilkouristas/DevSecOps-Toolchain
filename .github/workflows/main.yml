@@ -22,7 +22,7 @@ jobs:
           java-version: '17'
 
       - name: Install Dependencies 
-        run:
+        run: |
           cd WebGoat
           ./mvnw clean install
       - name: Build Docker image locally
