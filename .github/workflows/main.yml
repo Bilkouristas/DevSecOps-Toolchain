@@ -24,6 +24,7 @@ jobs:
       - name: Install Dependencies 
         run: |
           cd WebGoat
+          chmod +x mvnw
           ./mvnw clean install
       - name: Build Docker image locally
         run: docker build -f Dockerfile . -t webgoat/webgoat  
