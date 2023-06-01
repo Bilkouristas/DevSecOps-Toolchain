@@ -36,7 +36,7 @@ jobs:
           docker build -f Dockerfile . -t webgoat/webgoat 
 
       - name: Run the project  
-        run: 
+        run: |
           cd WebGoat
           chmod +x mvnw
           ./mvnw spring-boot:run
