@@ -14,7 +14,7 @@ jobs:
       - name: Set up environment
         uses: actions/setup-java@v2
         with:
-          java-version:'17'
+          java-version: '17'
       - name: Install Dependencies 
         run: ./mvnw clean install
       - name: Build Docker image locally
