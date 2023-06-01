@@ -1,0 +1,24 @@
+name: Compile and Build Docker image of the Web App
+run-name: ${{ github.actor }} is making a spicy tool
+
+on: 
+  push: 
+    branches: ['master']
+    
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up environment
+        uses: actions/setup-java@v2
+        with:
+          java-version:'17'
+      - name: Install Dependencies 
+        run: ./mvnw clean install
+      - name: Build Docker image locally
+        run: docker build -f Dockerfile . -t webgoat/webgoat  
+      - name: Run the project  
+        run: ./mvnw spring-boot:run
+      
