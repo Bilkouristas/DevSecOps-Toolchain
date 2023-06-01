@@ -6,7 +6,7 @@ on:
     branches: ['master']
     
 jobs:
-  test:
+  Building:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -14,6 +14,7 @@ jobs:
       - name: Set up environment
         uses: actions/setup-java@v2
         with:
+          distribution: 'oracle'
           java-version: '17'
       - name: Install Dependencies 
         run: ./mvnw clean install
