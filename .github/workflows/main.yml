@@ -1,4 +1,4 @@
-name: Compile and Build Docker image of the Web App
+name: CI/CD Pipeline 
 run-name: ${{ github.actor }} is making a spicy tool
 
 on: 
@@ -6,15 +6,17 @@ on:
     branches: ['master']
     
 jobs:
-  Building:
+  Continuous Integration:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
       - name: Set up node.js
         uses: actions/setup-node@v3
         with: 
           node-version: '12'
+
       - name: Set up java environment
         uses: actions/setup-java@v3
         with:
@@ -26,8 +28,16 @@ jobs:
           cd WebGoat
           chmod +x mvnw
           ./mvnw clean install
+
       - name: Build Docker image locally
-        run: docker build -f Dockerfile . -t webgoat/webgoat  
+        run: |
+          cd WebGoat
+          chmod +x mvnw
+          docker build -f Dockerfile . -t webgoat/webgoat 
+           
       - name: Run the project  
-        run: ./mvnw spring-boot:run
+        run: 
+          cd WebGoat
+          chmod +x mvnw
+          ./mvnw spring-boot:run
       
