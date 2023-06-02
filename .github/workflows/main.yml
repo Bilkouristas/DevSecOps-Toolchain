@@ -27,7 +27,7 @@ jobs:
       - name: Installing requirements 
         run: |
           sudo apt update
-          sudo apt install -y apache2 mariadb-server mariadb-client php php-mysqli.8.2 php-gd libapache2-mod-php
+          sudo apt install -y apache2 mariadb-server mariadb-client php php-mysqli php-gd libapache2-mod-php
 
       - name: Starting apache server
         run: |
