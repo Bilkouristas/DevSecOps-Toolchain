@@ -39,11 +39,11 @@ jobs:
         run: |
           cd DVWA
           sudo mysql -u root;
-          create database dvwa;
-          drop user dvwa@localhost;
+          CREATE DATABASE dvwa;
+          DROP USER dvwa@localhost;
           flush privileges;
-          create user dvwa@localhost identified by 'p@assw0rd';
-          grant all on dvwa.* to dvwa@localhost;
+          CREATE USER dvwa@localhost IDENTIFIED BY 'p@assw0rd';
+          GRANT ALL on dvwa.* to dvwa@localhost;
           flush privileges;
           exit;
           sudo mysql -u dvwa -p p@ssw0rd;
