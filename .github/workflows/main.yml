@@ -35,20 +35,20 @@ jobs:
           sudo service apache2 start 
           cp config/config.inc.php.dist config/config.inc.php 
 
-      - name: Creating database
-        run: |
-          cd DVWA
-          sudo mariadb -u root;
-          create database dvwa;
-          drop user dvwa@localhost;
-          flush privileges;
-          create user dvwa@localhost identified by 'p@assw0rd';
-          grant all on dvwa.* to dvwa@localhost;
-          flush privileges;
-          exit;
-          sudo mariadb -u dvwa -p p@ssw0rd;
-          source ~/DVWA/databases/create_mssql_db.sql;
-          exit;
+      # - name: Creating database
+      #   run: |
+      #     cd DVWA
+      #     sudo mariadb -u root;
+      #     create database dvwa;
+      #     drop user dvwa@localhost;
+      #     flush privileges;
+      #     create user dvwa@localhost identified by 'p@assw0rd';
+      #     grant all on dvwa.* to dvwa@localhost;
+      #     flush privileges;
+      #     exit;
+      #     sudo mariadb -u dvwa -p p@ssw0rd;
+      #     source ~/DVWA/databases/create_mssql_db.sql;
+      #     exit;
 
 # After the buil dof our web app, we are ready to perform our first DAST tool scan 
 # Modify the file example.js depending on the needs of the scan you want to perform
