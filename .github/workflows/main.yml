@@ -38,15 +38,15 @@ jobs:
       - name: Creating database
         run: |
           cd DVWA
-          sudo mysql -u root;
-          CREATE DATABASE dvwa;
-          DROP USER dvwa@localhost;
+          sudo mariadb -u root;
+          create database dvwa;
+          drop user dvwa@localhost;
           flush privileges;
-          CREATE USER dvwa@localhost IDENTIFIED BY 'p@assw0rd';
-          GRANT ALL on dvwa.* to dvwa@localhost;
+          create user dvwa@localhost identified by 'p@assw0rd';
+          grant all on dvwa.* to dvwa@localhost;
           flush privileges;
           exit;
-          sudo mysql -u dvwa -p p@ssw0rd;
+          sudo mariadb -u dvwa -p p@ssw0rd;
           source ~/DVWA/databases/create_mssql_db.sql;
           exit;
 
