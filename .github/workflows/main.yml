@@ -1,5 +1,5 @@
 name: CI/CD Pipeline 
-run-name: ${{ github.actor }} is making a spicy tool
+run-name: ${{ github.actor }} is making a spicy DAST tool
 
 on: 
   push: 
@@ -23,21 +23,60 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Install Dependencies 
+# Compiling our web app which in our case is DVWA
+      - name: Installing requirements 
         run: |
-          cd WebGoat
-          chmod +x mvnw
-          ./mvnw clean install
+          sudo apt update
+          sudo apt install -y apache2 mariadb-server mariadb-client php php-mysqli.8.2 php-gd libapache2-mod-php
 
-      - name: Build Docker image locally
+      - name: Starting apache server
         run: |
-          cd WebGoat
-          chmod +x mvnw
-          docker build -f Dockerfile . -t webgoat/webgoat 
+          cd DVWA
+          sudo service apache2 start 
+          cp config/config.inc.php.dist config/config.inc.php 
 
-      - name: Run the project  
+      - name: Creating database
         run: |
-          cd WebGoat
-          chmod +x mvnw
-          ./mvnw spring-boot:run
+          cd DVWA
+          mysql
+          create database dvwa;
+          drop user dvwa@localhost;
+          flush privileges;
+          create user dvwa@localhost identified by 'p@assw0rd';
+          grant all on dvwa.* to dvwa@localhost;
+          flush privileges;
+          exit;
+          mysql -u dvwa -p p@ssw0rd;
+          source ~/DVWA/databases/create_mssql_db.sql;
+          exit;
+
+# After the buil dof our web app, we are ready to perform our first DAST tool scan 
+# Modify the file example.js depending on the needs of the scan you want to perform
+      - name: Running DAST tool readily available as a docker image
+        run: |
+          cd DAST_Tool/mern-app 
+          docker-compose up
+          
+      - name: Performing scan
+        run: |
+          cd DAST_Tool/mern-app/zapscanner
+          node example.js
+
+      # - name: Install Dependencies 
+      #   run: |
+      #     cd WebGoat
+      #     chmod +x mvnw
+      #     ./mvnw clean install
+
+      # - name: Build Docker image locally
+      #   run: |
+      #     cd WebGoat
+      #     chmod +x mvnw
+      #     docker build -f Dockerfile . -t webgoat/webgoat 
+
+      # - name: Run the project  
+      #   run: |
+      #     cd WebGoat
+      #     chmod +x mvnw
+      #     ./mvnw spring-boot:run
       
