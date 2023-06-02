@@ -38,7 +38,7 @@ jobs:
       - name: Creating database
         run: |
           cd DVWA
-          mysql
+          mysql -u root;
           create database dvwa;
           drop user dvwa@localhost;
           flush privileges;
