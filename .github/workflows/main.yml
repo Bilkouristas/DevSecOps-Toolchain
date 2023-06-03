@@ -64,7 +64,7 @@ jobs:
   
   Performing_first_scan:  
     name: Performing first scan
-    needs: [Building app,Building DAST_Tool]
+    needs: [Building_app,Building_DAST_Tool]
     runs-on: ubuntu-latest      
     steps:
       - name: Performing scan
