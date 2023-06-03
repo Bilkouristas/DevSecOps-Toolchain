@@ -46,33 +46,35 @@ services:
       - "27017:27017"
     networks:
       - app-network
-  client:
-    build:
-      context: ./react-app
-      dockerfile: Dockerfile
-    image: myapp-client
-    container_name: myapp-react-client
-    command: npm start
-    volumes:
-      - ./react-app/:/usr/src/app/react-app
-      - /usr/src/app/react-app/node_modules
-    depends_on:
-      - server
-    env_file: ./react-app/src/config.json
-    environment:
-      - REACT_APP_API_ENDPOINT=http://localhost:3001
-    ports:
-      - "3000:3000"
-    networks:
-      - app-network
-  zap:
-    image: owasp/zap2docker-stable:2.9.0
-    container_name: zap
-    command: zap.sh -daemon -port 8080 -host 0.0.0.0 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
-    ports:
-      - "8080:8080"
-    networks:
-      - app-network
+
+  # client:
+  #   build:
+  #     context: ./react-app
+  #     dockerfile: Dockerfile
+  #   image: myapp-client
+  #   container_name: myapp-react-client
+  #   command: npm start
+  #   volumes:
+  #     - ./react-app/:/usr/src/app/react-app
+  #     - /usr/src/app/react-app/node_modules
+  #   depends_on:
+  #     - server
+  #   env_file: ./react-app/src/config.json
+  #   environment:
+  #     - REACT_APP_API_ENDPOINT=http://localhost:3001
+  #   ports:
+  #     - "3000:3000"
+  #   networks:
+  #     - app-network
+  
+  # zap:
+  #   image: owasp/zap2docker-stable:2.9.0
+  #   container_name: zap
+  #   command: zap.sh -daemon -port 8080 -host 0.0.0.0 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
+  #   ports:
+  #     - "8080:8080"
+  #   networks:
+  #     - app-network
 
   # Selenium Hub to control browsers
   selenium-hub:
