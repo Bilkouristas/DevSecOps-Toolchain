@@ -57,6 +57,8 @@ jobs:
     name: Building DAST_Tool
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Running DAST tool readily available as a docker image
         run: |
           cd DAST_Tool/mern-app 
@@ -67,8 +69,9 @@ jobs:
     needs: [Building_app,Building_DAST_Tool]
     runs-on: ubuntu-latest      
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
       - name: Performing scan
-
         run: |
           cd DAST_Tool/mern-app/zapscanner
           node example.js
