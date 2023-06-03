@@ -30,7 +30,7 @@ services:
       - "3001:3001"
     depends_on:
       - mongo
-      - zap
+      #- zap
     env_file: ./config/default.json
     environment:
       - MONGO_URI=mongodb://host.docker.internal:27017/secassess
@@ -66,7 +66,7 @@ services:
   #     - "3000:3000"
   #   networks:
   #     - app-network
-  
+
   # zap:
   #   image: owasp/zap2docker-stable:2.9.0
   #   container_name: zap
