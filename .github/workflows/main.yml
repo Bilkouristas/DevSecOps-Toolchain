@@ -63,14 +63,14 @@ jobs:
         run: |
           cd DAST_Tool/mern-app 
           docker-compose up
-          
+
   Setting_up_zap:
     name: Setting OWASP ZAP API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        - name: Running ZAP as a daemon 
+      - name: Running ZAP as a daemon 
         run: |
           docker pull owasp/zap2docker-stable
           zap.sh -daemon -port 8080 -host 0.0.0.0 -config api.disablekey=true -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true
