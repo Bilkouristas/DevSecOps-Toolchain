@@ -1,12 +1,13 @@
 name: CI/CD Pipeline 
-run-name: ${{ github.actor }} is making a spicy DAST tool
+run-name: Continuous_Integration
 
 on: 
   push: 
     branches: ['master']
     
 jobs:
-  Continuous_Integration:
+  Building_app:
+    name: Building the app
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -50,14 +51,24 @@ jobs:
       #     source ~/DVWA/databases/create_mssql_db.sql;
       #     exit;
 
-# After the buil dof our web app, we are ready to perform our first DAST tool scan 
+# After the build of our web app, we are ready to perform our first DAST tool scan 
 # Modify the file example.js depending on the needs of the scan you want to perform
+  Building_DAST_Tool:
+    name: Building DAST_Tool
+    runs-on: ubuntu-latest
+    steps:
       - name: Running DAST tool readily available as a docker image
         run: |
           cd DAST_Tool/mern-app 
           docker-compose up
-          
+  
+  Performing_first_scan:  
+    name: Performing first scan
+    needs: [Building app,Building DAST_Tool]
+    runs-on: ubuntu-latest      
+    steps:
       - name: Performing scan
+
         run: |
           cd DAST_Tool/mern-app/zapscanner
           node example.js

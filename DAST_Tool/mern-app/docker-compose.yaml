@@ -1,5 +1,20 @@
 version: "3.7"
 
+
+  # app:
+  #   build:
+  #     context: ./WebGoat
+  #     dockerfile: Dockerfile
+  #   image: webgoat/webgoat-8.0
+  #   volumes:
+  #     - .:/home/webgoat/.webgoat
+  #   ports: 
+  #     - "1234:8080"
+  #     - "5678:9090"
+  #   networks:
+  #     - app-network
+
+
 services:
   server:
     build:
