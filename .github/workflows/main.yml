@@ -63,18 +63,20 @@ jobs:
         run: |
           cd DAST_Tool/mern-app 
           docker-compose up
-  
-  Performing_first_scan:  
-    name: Performing first scan
-    needs: [Building_app,Building_DAST_Tool]
-    runs-on: ubuntu-latest      
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-      - name: Performing scan
-        run: |
           cd DAST_Tool/mern-app/zapscanner
           node example.js
+  
+  # Performing_first_scan:  
+  #   name: Performing first scan
+  #   needs: [Building_app,Building_DAST_Tool]
+  #   runs-on: ubuntu-latest      
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
+  #     - name: Performing scan
+  #       run: |
+  #         cd DAST_Tool/mern-app/zapscanner
+  #         node example.js
 
       # - name: Install Dependencies 
       #   run: |
